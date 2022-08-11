@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  myapp:
+    image: docker.io/bitnami/symfony:5.4
+    ports:
+      - '8000:8000'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - './:/app'
