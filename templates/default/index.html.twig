@@ -4,6 +4,18 @@
 
 {% block body %}
 
-<div>Test</div>
+<div class="row align-items-center">
+{{ form_start(form, { "attr": {"class": "form-inline " } }) }}
+
+    <div class="col-6">
+        <div class="form-group mb-2">
+            {{ form_row(form.search, { "attr": {"class": "form-control-plaintext" }}) }}
+        </div>
+        {{ form_row(form.submit, { "label": "Rechercher", "attr": {"class": "btn btn-primary mb-2" } } ) }}
+    </div>
+
+
+{{ form_end(form) }}
+</div>
 
 {% endblock %}

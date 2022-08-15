@@ -1,30 +1,45 @@
 <?php
 namespace App\Controller;
 
+use App\Form\SearchType;
+use App\Helper\GenerateImage;
+use App\Helper\SearchService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Helper\ApiWeather;
+use App\Helper\DateManager;
 
 class DefaultController extends AbstractController
 {
     #[Route('/')]
-    public function index(ApiWeather $apiWeather)
+    public function index(Request $request, GenerateImage $generateImage, SearchService $searchService, DateManager $dateManager, string $asset)
     {
-        $location = "Lyon";
-        $dateNow = date_format(new \DateTime(),"Y-m-d");
-        $result = $apiWeather->getWeatherForLocation("Lyon", $dateNow, $dateNow);
-        $datas = array($result["currentConditions"]["temp"], $result["currentConditions"]["icon"], $location);
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
 
-        $image = imagecreate(400, 400);
-        imagecolorallocate($image, "200", "200", "200");
-        imagecolorallocate($image, "0", "0", "0");
-        $text_color = imagecolorallocate($image, 233, 14, 91);
-        imagestring($image, 1, 5, 5,  "A Simple Text String", $text_color);
-        header("Content-Type: image/png");
-        $img = imagepng($image);
-        dump($img); die;
-        return $this->render('default/index.html.twig');
+            if ($form->getData()['search'] !== "") {
+                setlocale(LC_TIME, 'fr_FR');
+                date_default_timezone_set('Europe/Paris');
+                $dateNow = getdate();
+                $searchResult = $searchService->searchByLocalisation($form->getData()['search'], $dateNow);
+
+                $content = $this->renderView('Image/index.html.twig', array(
+                    "date" => $dateManager->getDateFormatFr($dateNow),
+                    "data_icon" => base64_encode($generateImage->getContentIcone($asset . $searchResult["currentConditions"]["icon"] . ".png")),
+                    "temp" => $searchResult["currentConditions"]["temp"],
+                    "localisation" => $form->getData()['search']
+                ));
+                $filename = "meteo-".strtolower($form->getData()['search']);
+                $response = new Response();
+                $response->headers->set('Content-Disposition', "attachment; filename=$filename.jpg");
+                $response->setContent($generateImage->generateSnappyImage($content));
+                return $response;
+            }
+        }
+
+        return $this->renderForm('Default/index.html.twig', array(
+            "form" => $form
+        ));
     }
 }

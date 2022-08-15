@@ -1,0 +1,30 @@
+<style>
+    html{
+        font-family: Arial;
+        background-color: cornflowerblue;
+        text-align: center;
+        color: #ffffff;
+    }
+    .icones{
+        display: block;
+        width: 70px;
+        height: 70px;
+        margin: 0 auto;
+    }
+    .temp{
+        font-size: 22px;
+        font-weight: 600;
+    }
+    .localisation{
+        font-size: 25px;
+    }
+</style>
+
+<div class="block">
+    <p>{{ date }}</p>
+    <img class="icones" src="data:image/png;base64,{{ data_icon }}" />
+    <p class="temp">{{ temp }}°C</p>
+    <p class="localisation">{{ localisation }}</p>
+</div>
+
+
