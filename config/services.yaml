@@ -14,6 +14,7 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
         bind:
+            $asset: '%kernel.project_dir%/public/icones/'
             $pathWeatherApi: '%api_weather%'
             $apiKey: '%api_key%'
 
