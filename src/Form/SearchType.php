@@ -14,8 +14,7 @@ class SearchType extends AbstractType
     {
         $builder
             ->add('search', TextType::class, array(
-                'label' => "Localisation",
-                'required' => true
+                'label' => "Localisation"
             ))
             ->add('submit', SubmitType::class)
         ;

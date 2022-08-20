@@ -31,8 +31,8 @@ class DefaultController extends AbstractController
         $form->handleRequest($request);
         $infos = array("error" => false, "message" => "");
 
-        if ($form->isSubmitted()) {
-            if($form->getData()['search'] && $form->getData()['search'] !== ""){
+        if ($form->isSubmitted() && $form->isValid()) {
+            if($form->getData()['search'] !== ""){
                 setlocale(LC_TIME, 'fr_FR');
                 date_default_timezone_set('Europe/Paris');
                 $city = $form->getData()['search'];

@@ -2,20 +2,33 @@
 
 {% block title %} Météolia {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .container-form{
+            margin: 0 auto;
+        }
+        .container-form label{
+            font-size: 18px;
+            margin: 20px 0 5px 0;
+        }
+    </style>
+
+{% endblock %}
+
 {% block body %}
 
-<div class="row align-items-center">
+<div class="row">
 {{ form_start(form, { "attr": {"class": "form-inline " } }) }}
 
-    <div class="col-6">
-        {{ dump(infos) }}
+    <div class="col-6 container-form">
         {% if infos.error == true %}
             <div class="alert alert-warning" role="alert">
                 {{ infos.message }}
             </div>
         {% endif %}
         <div class="form-group mb-2">
-            {{ form_row(form.search, { "attr": {"class": "form-control-plaintext" }}) }}
+            {{ form_row(form.search, { "attr": {"class": "form-control" }}) }}
         </div>
         {{ form_row(form.submit, { "label": "Rechercher", "attr": {"class": "btn btn-primary mb-2" } } ) }}
     </div>
