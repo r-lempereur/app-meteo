@@ -1,12 +1,13 @@
-version: '2'
+version: '3'
 
 services:
-  myapp:
-    image: docker.io/bitnami/symfony:5.4
+  app:
+    container_name: app-meteo
+    build: .
     ports:
-      - '8000:8000'
+      - '8000:80'
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
     volumes:
-      - './:/app'
+      - './:/var/www/html'
