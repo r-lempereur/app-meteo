@@ -21,13 +21,10 @@ class SearchService
         try{
             $dateSearch = $this->dateManager->getDateFormatSearch($dateNow);
             $result = $this->apiWeather->getWeatherForLocation($localisation, $dateSearch, $dateSearch);
-
-            if(!$result["currentConditions"]){
-                $result["currentConditions"] = $result["days"][0];
-            }
         }catch (\Exception $ex){
-
+            // Erreur sur la récupération des données
         }
         return $result;
     }
+
 }

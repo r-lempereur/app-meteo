@@ -8,6 +8,11 @@
 {{ form_start(form, { "attr": {"class": "form-inline " } }) }}
 
     <div class="col-6">
+        {% if infos.error == true %}
+            <div class="alert alert-warning" role="alert">
+                {{ infos.message }}
+            </div>
+        {% endif %}
         <div class="form-group mb-2">
             {{ form_row(form.search, { "attr": {"class": "form-control-plaintext" }}) }}
         </div>
