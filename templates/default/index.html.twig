@@ -8,6 +8,7 @@
 {{ form_start(form, { "attr": {"class": "form-inline " } }) }}
 
     <div class="col-6">
+        {{ dump(infos) }}
         {% if infos.error == true %}
             <div class="alert alert-warning" role="alert">
                 {{ infos.message }}
