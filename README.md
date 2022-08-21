@@ -9,8 +9,13 @@ L'application permet de générer une image au format .png avec les informations
 
 ## Installation de l'environnement avec docker
 - Cloner le projet :  <code>git clone git@github.com:r-lempereur/app-meteo.git</code>  
-- <code>cd app-meteo</code> 
-- <code>docker-compose up -d</code>
+- Exécuter la commande <code>cd app-meteo</code> 
+- Exécuter la commande <code>docker-compose build --no-cache</code>
+- Exécuter la commande <code>docker-compose up -d</code>
+- Vérifier la présence du conteneur app-meteo <code>docker ps -a</code>
+- Se connecter au conteneur app-meteao <code>docker exec -it app-meteo bash</code>
+- Exécuter la commande <code>cp .env.local.dist .env</code>
+- Exécuter la commande <code>composer install</code>
 
 ## Configuration
 - Créer un compte sur l'api Visual Crossing et générer une clé d'api https://www.visualcrossing.com/weather-data
