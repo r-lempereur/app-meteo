@@ -61,6 +61,8 @@ class DefaultController extends AbstractController
                         $pathPng = $dataSaveManager->getCityData()[$city]["pathPng"];
                     }
 
+                    $infos['error'] = false;
+
                     $stream = new Stream($pathPng);
                     return new BinaryFileResponse($stream, 200, array(
                         "Content-Type" => "image/png",
