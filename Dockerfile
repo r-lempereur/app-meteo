@@ -46,4 +46,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 
 COPY ./composer.json ./composer.json
 
+COPY .env.local.dist .env
+
 RUN composer install
